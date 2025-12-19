@@ -15,6 +15,7 @@ urlpatterns = [
     path('sucursales/crear/', views.crear_sucursal, name='crear_sucursal'),
     path('sucursales/editar/<int:pk>/', views.editar_sucursal, name='editar_sucursal'),
     path('sucursales/eliminar/<int:pk>/', views.eliminar_sucursal, name='eliminar_sucursal'),
+    path('sucursales/<int:pk>/', views.sucursal_detalle, name='sucursal_detalle'),
 
     path('alumnos/', views.listar_alumnos, name='listar_alumnos'),
     path('alumnos/crear/', views.crear_alumno, name='crear_alumno'),

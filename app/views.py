@@ -65,6 +65,11 @@ def eliminar_sucursal(request, pk):
         sucursal.delete()
         return redirect('listar_sucursales')
     return render(request, 'sucursal/eliminar_sucursal.html', {'sucursal': sucursal}) 
+
+def sucursal_detalle(request, pk):
+    sucursal = get_object_or_404(Sucursal, pk=pk)
+    matriculas_sucursal = sucursal.matriculas_set.all()
+    return render(request, 'sucursal/sucursal_detalle.html', {'sucursal': sucursal, 'matriculas_sucursal': matriculas_sucursal})
 #crud de alumnos
 
 def listar_alumnos(request):

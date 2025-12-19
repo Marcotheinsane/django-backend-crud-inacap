@@ -24,7 +24,7 @@
                 <tbody>
                     {% for sucursal in sucursales %}
                     <tr>
-                        <td>{{ sucursal.codigo }}</td>
+                        <td> <a href="{% url 'sucursal_detalle' sucursal.codigo %}">{{ sucursal.codigo }}</a></td>
                         <td>{{ sucursal.nombre }}</td>
                         <td>{{ sucursal.ciudad }}</td>
                         <td class="text-end">
