@@ -6,11 +6,6 @@ from .models import Curso, Sucursal
 def home(request):
     return render(request, 'home.html')
 
-<<<<<<< Updated upstream
-
-
-=======
->>>>>>> Stashed changes
 #crud de cursos
 def listar_cursos(request):
     cursos = Curso.objects.all()
@@ -40,8 +35,6 @@ def eliminar_curso(request, codigo):
     curso.delete()
     return redirect('listar_cursos')
 
-<<<<<<< Updated upstream
-=======
 def listar_sucursal(request):
     sucursales = Sucursal.objects.all()
     return render(request, 'sucursal/listar_sucursales.html', {'sucursales': sucursales})
@@ -69,4 +62,3 @@ def eliminar_sucursal(request, codigo):
     sucursal = Sucursal.objects.get(codigo=codigo)
     sucursal.delete()
     return redirect('listar_sucursales')
->>>>>>> Stashed changes
