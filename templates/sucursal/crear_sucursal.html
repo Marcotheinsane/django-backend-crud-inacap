@@ -1,18 +1,45 @@
-{% extends "base.html" %}
+{% extends "curso/listar_cursos.html" %}
+
 {% block content %}
-<form method="post">
-    {% csrf_token %}
-    <label for="codigo">Código:</label>
-    <input type="text" id="codigo" name="codigo" required><br>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Crear sucursal</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
 
-    <label for="nombre">nombre:</label>
-    <input type="text" id="nombre" name="nombre" required><br>
+                        <div class="mb-3">
+                            <label for="codigo" class="form-label">Código</label>
+                            <input type="text" id="codigo" name="codigo" class="form-control" required>
+                        </div>
 
-    <label for="ciudad">Ciudad:</label>
-    <input type="text" id="ciudad" name="ciudad" required><br>
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">nombre</label>
+                            <input type="text" id="nombre" name="nombre" class="form-control" required>
+                        </div>
 
-    <button type="submit">Crear Sucursal</button>
-    <button type="reset" href="{% url 'listar_sucursales' %}">Cancelar</button>
-</form>
+                        <div class="mb-3">
+                            <label for="ciudad" class="form-label">Ciudad</label>
+                            <input type="text" id="ciudad" name="ciudad" class="form-control" required>
+                        </div>
 
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success">
+                                Crear sucursal
+                            </button>
+                            <button type="button" class="btn btn-secondary mt-2">
+                                <a href="{% url 'listar_sucursales' %}" class="text-white text-decoration-none">
+                                    Cancelar
+                                </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock content %}

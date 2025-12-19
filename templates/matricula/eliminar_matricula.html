@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Eliminar curso{% endblock %}
+{% block title %}Eliminar matricula{% endblock %}
 
 {% block content %}
 <div class="container mt-5">
@@ -14,10 +14,9 @@
 
                 <div class="card-body text-center">
                     <p class="fs-5">
-                        ¿Estás seguro de que deseas eliminar el curso
-                        <strong>{{ curso.nombre }}</strong>?
+                        ¿Estás seguro de que deseas eliminar la matricula
+                        <strong>{{ matricula.codigo }}</strong>?
                     </p>
-
                     <form method="post" class="mt-4">
                         {% csrf_token %}
 
@@ -25,7 +24,7 @@
                             Eliminar
                         </button>
 
-                        <a href="{% url 'listar_cursos' %}" class="btn btn-secondary">
+                        <a href="{% url 'listar_matriculas' %}" class="btn btn-secondary">
                             Cancelar
                         </a>
                     </form>

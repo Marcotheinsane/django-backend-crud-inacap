@@ -1,16 +1,45 @@
 {% extends "curso/listar_cursos.html" %}
+
 {% block content %}
-<form method="post">
-    {% csrf_token %}
-    <label for="codigo">Código:</label>
-    <input type="text" id="codigo" name="codigo" required><br>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Crear Curso</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
 
-    <label for="nombre">Descripción:</label>
-    <input type="text" id="nombre" name="nombre" required><br>
+                        <div class="mb-3">
+                            <label for="codigo" class="form-label">Código</label>
+                            <input type="text" id="codigo" name="codigo" class="form-control" required>
+                        </div>
 
-    <label for="valor">valor:</label>
-    <input type="text" id="valor" name="valor" required><br>
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">nombre</label>
+                            <input type="text" id="nombre" name="nombre" class="form-control" required>
+                        </div>
 
-    <button type="submit">Crear Curso</button>
+                        <div class="mb-3">
+                            <label for="valor" class="form-label">Valor</label>
+                            <input type="number" id="valor" name="valor" class="form-control" required>
+                        </div>
 
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success">
+                                Crear Curso
+                            </button>
+                            <button type="button" class="btn btn-secondary mt-2">
+                                <a href="{% url 'listar_cursos' %}" class="text-white text-decoration-none">
+                                    Cancelar
+                                </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock content %}

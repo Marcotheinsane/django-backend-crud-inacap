@@ -1,32 +1,58 @@
-{% extends "base.html" %}
+{% extends "home.html" %}
 
-{% block content %} 
-<h2>Lista de Matriculas</h2>
-<table class="table">  
-    <thead>
-        <tr>
-            <th>ID Matricula</th>
-            <th>Alumno</th>
-            <th>Curso</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for matricula in matriculas %}
-        <tr>
-            <td>{{ matricula.id }}</td>
-            <td>{{ matricula.alumno.nombre }} {{ matricula.alumno.apellido }}</td>
-            <td>{{ matricula.curso.nombre }}</td>
-            <td>
-                <a href="{% url 'eliminar_matricula' matricula.id %}" class="btn btn-danger btn-sm">Eliminar</a>
-                <a href="{% url 'editar_matricula' matricula.id %}" class="btn btn-primary btn-sm">Editar</a>
-            </td>
-        </tr>
-        {% empty %}
-        <tr>
-            <td colspan="4">No hay matriculas disponibles.</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+{% block content %}
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="mb-0">Lista de Matriculas</h2>
+        <a href="{% url 'crear_matricula' %}" class="btn btn-success">
+            Agregar matricula
+        </a>
+    </div>
+
+    <div class="card shadow">
+        <div class="card-body">
+            <table class="table table-striped table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Código</th>
+                        <th>codigo curso</th>
+                        <th>rut alumno</th>
+                        <th>codigo sucursal</th>
+                        <th>fecha matricula</th>
+                        <th class="text-end">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for matricula in matriculas %}
+                    <tr>
+                        <td>{{ matricula.codigo }}</td>
+                        <td>{{ matricula.curso_codigo }}</td>
+                        <td>{{ matricula.alumno_rut }}</td>
+                        <td>{{ matricula.sucursal_codigo }}</td>
+                        <td>{{ matricula.fecha }}</td>
+                        <td class="text-end">
+                            <a href="{% url 'editar_matricula' matricula.codigo %}" 
+                               class="btn btn-primary btn-sm">
+                                Editar
+                            </a>
+                            <a href="{% url 'eliminar_matricula' matricula.codigo %}" 
+                               class="btn btn-danger btn-sm">
+                                Eliminar
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center text-muted">
+                            No hay matriculas disponibles
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
 {% endblock content %}

@@ -1,4 +1,4 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from .models import Curso, Matriculas, Sucursal, Alumnos
 # Create your views here.
 
@@ -30,11 +30,12 @@ def editar_curso(request, codigo):
         return redirect('listar_cursos')
     return render(request, 'curso/editar_curso.html', {'curso': curso})
 
-def eliminar_curso(request, codigo):
-    curso = Curso.objects.get(codigo=codigo)
-    curso.delete()
-    return redirect('listar_cursos')
-
+def eliminar_curso(request, pk):
+    curso = get_object_or_404(Curso, pk=pk)
+    if request.method == 'POST':
+        curso.delete()
+        return redirect('listar_cursos')
+    return render(request, 'curso/eliminar_curso.html', {'curso': curso}) 
 def listar_sucursal(request):
     sucursales = Sucursal.objects.all()
     return render(request, 'sucursal/listar_sucursales.html', {'sucursales': sucursales})
@@ -58,11 +59,12 @@ def editar_sucursal(request, codigo):
         return redirect('listar_sucursales')
     return render(request, 'sucursal/editar_sucursal.html', {'sucursal': sucursal})
 
-def eliminar_sucursal(request, codigo):
-    sucursal = Sucursal.objects.get(codigo=codigo)
-    sucursal.delete()
-    return redirect('listar_sucursales')
-
+def eliminar_sucursal(request, pk):
+    sucursal = get_object_or_404(Sucursal, pk=pk)
+    if request.method == 'POST':
+        sucursal.delete()
+        return redirect('listar_sucursales')
+    return render(request, 'sucursal/eliminar_sucursal.html', {'sucursal': sucursal}) 
 #crud de alumnos
 
 def listar_alumnos(request):
@@ -128,7 +130,10 @@ def editar_matricula(request, codigo):
     alumnos = Alumnos.objects.all()
     sucursales = Sucursal.objects.all()
     return render(request, 'matricula/editar_matricula.html', {'matricula': matricula, 'cursos': cursos, 'alumnos': alumnos, 'sucursales': sucursales})
-def eliminar_matricula(request, codigo):
-    matricula = Matriculas.objects.get(codigo=codigo)
-    matricula.delete()
-    return redirect('listar_matriculas')   
+
+def eliminar_matricula(request, pk):
+    matricula = get_object_or_404(Matriculas, pk=pk)
+    if request.method == 'POST':
+        matricula.delete()
+        return redirect('listar_matriculas')
+    return render(request, 'matricula/eliminar_matricula.html', {'matricula': matricula}) 
