@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render
-from .models import Curso, Sucursal
+from .models import Curso, Matriculas, Sucursal, Alumnos
 # Create your views here.
 
 
@@ -62,3 +62,73 @@ def eliminar_sucursal(request, codigo):
     sucursal = Sucursal.objects.get(codigo=codigo)
     sucursal.delete()
     return redirect('listar_sucursales')
+
+#crud de alumnos
+
+def listar_alumnos(request):
+    alumnos = Alumnos.objects.all()
+    return render(request, 'alumno/listar_alumnos.html', {'alumnos': alumnos})
+def crear_alumno(request):
+    if request.method == 'POST':
+        rut = request.POST.get('rut')
+        nombre = request.POST.get('nombre')
+        apellido_paterno = request.POST.get('apellido_paterno')
+        direccion = request.POST.get('direccion')
+        email = request.POST.get('email')
+        fono = request.POST.get('fono')
+        alumno = Alumnos(rut=rut, nombre=nombre, apellido_paterno=apellido_paterno, direccion=direccion, email=email, fono=fono)
+        alumno.save()
+        return redirect('listar_alumnos')
+    return render(request, 'alumno/crear_alumno.html')  
+def editar_alumno(request, rut):
+    alumno = Alumnos.objects.get(rut=rut)
+    if request.method == 'POST':
+        alumno.nombre = request.POST.get('nombre')
+        alumno.apellido_paterno = request.POST.get('apellido_paterno')
+        alumno.direccion = request.POST.get('direccion')
+        alumno.email = request.POST.get('email')
+        alumno.fono = request.POST.get('fono')
+        alumno.save()
+        return redirect('listar_alumnos')
+    return render(request, 'alumno/editar_alumno.html', {'alumno': alumno})
+
+def eliminar_alumno(request, rut):
+    alumno = Alumnos.objects.get(rut=rut)
+    alumno.delete()
+    return redirect('listar_alumnos')
+
+#crud de matriculas 
+def listar_matriculas(request):
+    matriculas = Matriculas.objects.all()
+    return render(request, 'matricula/listar_matriculas.html', {'matriculas': matriculas})
+def crear_matricula(request):
+    if request.method == 'POST':
+        codigo = request.POST.get('codigo')
+        curso_codigo = request.POST.get('curso_codigo')
+        alumno_rut = request.POST.get('alumno_rut')
+        sucursal_codigo = request.POST.get('sucursal_codigo')
+        fecha = request.POST.get('fecha')
+        matricula = Matriculas(codigo=codigo, curso_codigo_id=curso_codigo, alumno_rut_id=alumno_rut, sucursal_codigo_id=sucursal_codigo, fecha=fecha)
+        matricula.save()
+        return redirect('listar_matriculas')
+    cursos = Curso.objects.all()
+    alumnos = Alumnos.objects.all()
+    sucursales = Sucursal.objects.all()
+    return render(request, 'matricula/crear_matricula.html', {'cursos': cursos, 'alumnos': alumnos, 'sucursales': sucursales})
+def editar_matricula(request, codigo):
+    matricula = Matriculas.objects.get(codigo=codigo)
+    if request.method == 'POST':
+        matricula.curso_codigo_id = request.POST.get('curso_codigo')
+        matricula.alumno_rut_id = request.POST.get('alumno_rut')
+        matricula.sucursal_codigo_id = request.POST.get('sucursal_codigo')
+        matricula.fecha = request.POST.get('fecha')
+        matricula.save()
+        return redirect('listar_matriculas')
+    cursos = Curso.objects.all()
+    alumnos = Alumnos.objects.all()
+    sucursales = Sucursal.objects.all()
+    return render(request, 'matricula/editar_matricula.html', {'matricula': matricula, 'cursos': cursos, 'alumnos': alumnos, 'sucursales': sucursales})
+def eliminar_matricula(request, codigo):
+    matricula = Matriculas.objects.get(codigo=codigo)
+    matricula.delete()
+    return redirect('listar_matriculas')   
